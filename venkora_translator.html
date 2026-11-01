@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10182f">
+<title>VENKORA AI — Language Translator</title>
+<style>
+:root{--bg:#0b1020;--panel:#151e35;--panel2:#1d2945;--text:#f3f6ff;--muted:#aab6d1;--accent:#8b7cff;--accent2:#39d6c5;--line:#34415f}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#26345e 0,transparent 34%),linear-gradient(145deg,#0b1020,#111a30 65%,#10182a);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:980px;margin:auto;padding:28px 18px 54px}.top{text-align:center;padding:24px 8px 30px}.logo{display:inline-flex;align-items:center;gap:9px;padding:7px 13px;border:1px solid #56628a;border-radius:999px;color:#d8d4ff;background:#171e38;font-size:12px;letter-spacing:.15em;font-weight:800}.orb{width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 14px var(--accent2)}h1{font-size:clamp(38px,8vw,66px);line-height:1;margin:20px 0 12px;letter-spacing:.04em;background:linear-gradient(90deg,#fff,#b7b0ff,#6ee9dc);-webkit-background-clip:text;background-clip:text;color:transparent}.subtitle{color:var(--muted);max-width:620px;margin:auto}.card{background:rgba(21,30,53,.92);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 18px 55px #0005}.controls{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end}.field label{display:block;color:var(--muted);font-size:13px;margin:0 0 7px}.select,textarea{width:100%;border:1px solid var(--line);background:#0e172b;color:var(--text);border-radius:12px;padding:13px;font:inherit}.swap{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:20px;cursor:pointer}.areas{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.area{background:#0e172b;border:1px solid var(--line);border-radius:15px;padding:14px}.area textarea{border:0;background:transparent;padding:5px 0;min-height:150px;resize:vertical;outline:none}.area-title{font-size:13px;color:var(--muted);margin-bottom:8px}.result{min-height:150px;white-space:pre-wrap;overflow-wrap:anywhere;padding:5px 0;color:#e9e8ff}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:750;cursor:pointer}.primary{background:linear-gradient(100deg,var(--accent),#5c9cff);color:white}.secondary{background:#263452;color:#edf1ff;border:1px solid #425174}.btn:focus,.select:focus,textarea:focus{outline:2px solid var(--accent2);outline-offset:2px}.note{color:var(--muted);font-size:13px;margin:15px 2px 0}.section{margin-top:22px}.section h2{font-size:19px;margin:0 0 10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:7px 10px;border-radius:999px;background:#202c49;border:1px solid #39486c;color:#dfe5ff;font-size:13px}.disclaimer{margin-top:22px;padding:14px 16px;border-left:3px solid var(--accent2);background:#15243a;border-radius:8px;color:#c4cee5;font-size:13px}.footer{text-align:center;color:#7f8ba8;font-size:12px;margin-top:24px}
+@media(max-width:650px){.controls{grid-template-columns:1fr auto 1fr}.areas{grid-template-columns:1fr}.card{padding:15px}.wrap{padding:15px 12px 40px}.area textarea,.result{min-height:110px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top">
+  <div class="logo"><span class="orb"></span> EXPERIMENTAL LANGUAGE PROJECT</div>
+  <h1>VENKORA AI</h1>
+  <p class="subtitle">A creative, fictional-language translator concept. Explore the starter vocabulary and translate simple greetings between VENKORA, Telugu, English and German.</p>
+</header>
+<section class="card" aria-label="Translator">
+  <div class="controls">
+    <div class="field"><label for="from">Translate from</label><select id="from" class="select"><option>VENKORA</option><option>English</option><option>Telugu</option><option>German</option></select></div>
+    <button class="swap" id="swap" title="Swap languages" aria-label="Swap languages">⇄</button>
+    <div class="field"><label for="to">Translate to</label><select id="to" class="select"><option>Telugu</option><option>English</option><option>German</option><option>VENKORA</option></select></div>
+  </div>
+  <div class="areas">
+    <div class="area"><div class="area-title">YOUR TEXT</div><textarea id="input" placeholder="Type a greeting or a phrase…">Zha'vori Nethara!</textarea></div>
+    <div class="area"><div class="area-title">TRANSLATION</div><div id="output" class="result" aria-live="polite">జన్మదిన శుభాకాంక్షలు!</div></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" id="translate">Translate</button>
+    <button class="btn secondary" id="copy">Copy translation</button>
+    <button class="btn secondary" id="clear">Clear</button>
+  </div>
+  <p class="note" id="status">Starter phrase detected. Select languages and press Translate.</p>
+</section>
+<section class="section">
+  <h2>Try a sample</h2>
+  <div class="chips">
+    <button class="chip sample" data-text="Zha'vori Nethara!">Zha'vori Nethara!</button>
+    <button class="chip sample" data-text="Aru'mei valora thalan!">Aru'mei valora thalan!</button>
+    <button class="chip sample" data-text="Happy Birthday!">Happy Birthday!</button>
+    <button class="chip sample" data-text="Alles Gute zum Geburtstag!">Alles Gute zum Geburtstag!</button>
+  </div>
+</section>
+<div class="disclaimer"><strong>Important:</strong> VENKORA is an invented demonstration language created for this project. It is not an established natural language, and this prototype uses a small, hand-written phrasebook—not a full AI translation engine. Unknown words may remain unchanged.</div>
+<footer class="footer">VENKORA AI · A creative language experiment</footer>
+</main>
+<script>
+const phrases = [
+ {v:"zha'vori nethara",en:"Happy Birthday!",te:"జన్మదిన శుభాకాంక్షలు!",de:"Alles Gute zum Geburtstag!"},
+ {v:"aru'mei valora thalan",en:"May your life be filled with happiness!",te:"మీ జీవితం ఆనందంతో నిండాలి!",de:"Möge dein Leben voller Glück sein!"},
+ {v:"nira'sha moravi etern",en:"May your health and life be everlasting.",te:"మీ ఆరోగ్యం, ఆయుష్షు శాశ్వతంగా ఉండాలి.",de:"Mögen Gesundheit und Leben lange währen."},
+ {v:"vesha'kai lumora selan",en:"May your dreams shine with success.",te:"మీ కలలు విజయంతో ప్రకాశించాలి.",de:"Mögen deine Träume von Erfolg erstrahlen."},
+ {v:"thora'mei zha'vori forevera",en:"May happiness stay with you forever.",te:"మీ సంతోషం ఎప్పటికీ నిలిచి ఉండాలి.",de:"Möge das Glück dich für immer begleiten."}
+];
+const norm=s=>s.toLocaleLowerCase().trim().replace(/[.!?]+$/,'').replace(/\s+/g,' ');
+const from=document.getElementById('from'),to=document.getElementById('to'),input=document.getElementById('input'),output=document.getElementById('output'),status=document.getElementById('status');
+const keys={VENKORA:'v',English:'en',Telugu:'te',German:'de'};
+function translate(){
+ const a=keys[from.value],b=keys[to.value],raw=input.value.trim();
+ if(!raw){output.textContent='';status.textContent='Enter some text to translate.';return;}
+ const exact=phrases.find(p=>norm(p[a])===norm(raw));
+ if(exact){output.textContent=exact[b];status.textContent='Phrasebook match found.';return;}
+ const words=raw.split(/(\s+)/);
+ let found=0;
+ const result=words.map(w=>{
+   if(!w.trim())return w;
+   const clean=norm(w);
+   const match=phrases.find(p=>norm(p[a])===clean);
+   if(match){found++;return match[b];}
+   return w;
+ }).join('');
+ output.textContent=result;
+ status.textContent=found?'Some phrasebook entries were matched; review the result.':'No exact phrasebook match. Unknown text is shown unchanged in this prototype.';
+}
+document.getElementById('translate').addEventListener('click',translate);
+document.getElementById('swap').addEventListener('click',()=>{const x=from.value;from.value=to.value;to.value=x;translate();});
+document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(output.textContent);status.textContent='Translation copied.';}catch(e){status.textContent='Select and copy the translation manually.';}});
+document.getElementById('clear').addEventListener('click',()=>{input.value='';output.textContent='';status.textContent='Cleared.';});
+document.querySelectorAll('.sample').forEach(btn=>btn.addEventListener('click',()=>{input.value=btn.dataset.text;if(btn.dataset.text.startsWith('Happy')){from.value='English';to.value='VENKORA';}else if(btn.dataset.text.startsWith('Alles')){from.value='German';to.value='VENKORA';}else{from.value='VENKORA';to.value='Telugu';}translate();}));
+translate();
+</script>
+</body>
+</html>
